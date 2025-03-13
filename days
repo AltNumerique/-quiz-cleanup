@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz sur la gestion des fichiers et du numérique responsable</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        label {
+            font-weight: bold;
+        }
+        .answer {
+            margin-left: 10px;
+        }
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Quiz sur la gestion des fichiers et du numérique responsable</h1>
+    
+    <form id="quizForm">
+        <div class="question">
+            <label for="fichiers-1">Gestion des fichiers</label><br>
+            <p>Savez-vous où sont stockés vos documents, photos et téléchargements sur votre ordinateur ou smartphone ?</p>
+            <label><input type="radio" name="fichiers-1" value="Oui"> Oui</label>
+            <label><input type="radio" name="fichiers-1" value="Non"> Non</label>
+            <label><input type="radio" name="fichiers-1" value="Un peu"> Un peu</label>
+        </div>
+
+        <div class="question">
+            <p>Avez-vous déjà supprimé des fichiers inutiles ?</p>
+            <label><input type="radio" name="fichiers-2" value="Jamais"> Jamais</label>
+            <label><input type="radio" name="fichiers-2" value="Rarement"> Rarement</label>
+            <label><input type="radio" name="fichiers-2" value="Régulièrement"> Régulièrement</label>
+        </div>
+
+        <div class="question">
+            <p>Savez-vous créer et organiser des dossiers pour ranger vos fichiers ?</p>
+            <label><input type="radio" name="fichiers-3" value="Oui"> Oui</label>
+            <label><input type="radio" name="fichiers-3" value="Non"> Non</label>
+        </div>
+
+        <div class="question">
+            <label for="emails-1">Gestion des emails</label><br>
+            <p>Supprimez-vous régulièrement les emails inutiles (ex. : publicités, spams) ?</p>
+            <label><input type="radio" name="emails-1" value="Jamais"> Jamais</label>
+            <label><input type="radio" name="emails-1" value="Parfois"> Parfois</label>
+            <label><input type="radio" name="emails-1" value="Souvent"> Souvent</label>
+        </div>
+
+        <div class="question">
+            <p>Savez-vous utiliser les filtres ou les dossiers pour classer vos emails ?</p>
+            <label><input type="radio" name="emails-2" value="Oui"> Oui</label>
+            <label><input type="radio" name="emails-2" value="Non"> Non</label>
+        </div>
+
+        <div class="question">
+            <label for="stockage-1">Optimisation du stockage</label><br>
+            <p>Avez-vous déjà utilisé un outil pour voir ce qui prend de la place sur votre ordinateur/smartphone ?</p>
+            <label><input type="radio" name="stockage-1" value="Oui"> Oui</label>
+            <label><input type="radio" name="stockage-1" value="Non"> Non</label>
+        </div>
+
+        <div class="question">
+            <p>Savez-vous vider la corbeille et nettoyer les fichiers temporaires ?</p>
+            <label><input type="radio" name="stockage-2" value="Oui"> Oui</label>
+            <label><input type="radio" name="stockage-2" value="Non"> Non</label>
+        </div>
+
+        <div class="question">
+            <label for="numerique-responsable">Sensibilisation au numérique responsable</label><br>
+            <p>Avez-vous déjà entendu parler de l’empreinte carbone du numérique ?</p>
+            <label><input type="radio" name="numerique-responsable" value="Oui"> Oui</label>
+            <label><input type="radio" name="numerique-responsable" value="Non"> Non</label>
+        </div>
+
+        <div class="question">
+            <p>Selon vous, quels gestes pourraient réduire votre empreinte numérique ? (Réponse libre)</p>
+            <textarea name="gestes-responsables" rows="4" cols="50"></textarea>
+        </div>
+
+        <div class="question">
+            <button type="button" class="submit-btn" onclick="calculateResults()">Soumettre</button>
+        </div>
+    </form>
+
+    <div id="results" class="result"></div>
+
+    <script>
+        function calculateResults() {
+            let form = document.getElementById("quizForm");
+            let results = "";
+            let formData = new FormData(form);
+
+            // Check for answers in each section
+            let answers = {
+                "Gestion des fichiers": [
+                    formData.get("fichiers-1"),
+                    formData.get("fichiers-2"),
+                    formData.get("fichiers-3")
+                ],
+                "Gestion des emails": [
+                    formData.get("emails-1"),
+                    formData.get("emails-2")
+                ],
+                "Optimisation du stockage": [
+                    formData.get("stockage-1"),
+                    formData.get("stockage-2")
+                ],
+                "Sensibilisation au numérique responsable": [
+                    formData.get("numerique-responsable"),
+                    formData.get("gestes-responsables")
+                ]
+            };
+
+            // Process the answers and display them
+            results += "<h2>Résultats du quiz</h2>";
+            for (let section in answers) {
+                results += "<h3>" + section + "</h3><ul>";
+                answers[section].forEach((answer, index) => {
+                    results += "<li>Question " + (index + 1) + ": " + (answer || "Aucune réponse") + "</li>";
+                });
+                results += "</ul>";
+            }
+
+            // Display results
+            document.getElementById("results").innerHTML = results;
+        }
+    </script>
+
+</body>
+</html>
